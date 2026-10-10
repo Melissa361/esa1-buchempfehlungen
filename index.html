@@ -5,15 +5,129 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Persönliche Buchempfehlungen zum Entdecken und Filtern."
+      content="Entdecke persönlich ausgewählte Buchempfehlungen und finde mit Suche und Genrefilter deinen nächsten Lesetipp."
     />
+    <meta name="theme-color" content="#28382f" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>Zwischen den Zeilen – Buchempfehlungen</title>
   </head>
   <body>
-    <main>
-      <h1>Zwischen den Zeilen</h1>
-      <p>Die Buchempfehlungen werden vorbereitet.</p>
+    <a class="skip-link" href="#inhalt">Direkt zum Inhalt</a>
+
+    <header class="site-header" id="start">
+      <nav class="navigation" aria-label="Hauptnavigation">
+        <a class="wordmark" href="#start" aria-label="Zwischen den Zeilen – Startseite">
+          <span aria-hidden="true">Z</span>
+          Zwischen den Zeilen
+        </a>
+        <ul>
+          <li><a href="#empfehlungen">Empfehlungen</a></li>
+          <li><a href="#leseimpuls">Leseimpuls</a></li>
+          <li><a href="#auswahl">Auswahl</a></li>
+        </ul>
+      </nav>
+
+      <section class="hero" aria-labelledby="hero-title">
+        <p class="eyebrow">Ein kleiner literarischer Kompass</p>
+        <h1 id="hero-title">Geschichten, die noch lange nachklingen.</h1>
+        <p class="hero-copy">
+          Acht ausgewählte Bücher, acht neue Blickwinkel. Durchsuche die Sammlung
+          oder filtere nach Stimmung und Genre.
+        </p>
+        <a class="button-link" href="#empfehlungen">Bücher entdecken</a>
+        <aside class="hero-note" aria-label="Leitgedanke">
+          <p>
+            Manchmal beginnt die richtige Geschichte genau mit der Frage:
+            <strong>Was lese ich als Nächstes?</strong>
+          </p>
+        </aside>
+      </section>
+    </header>
+
+    <main id="inhalt">
+      <section class="discover" id="empfehlungen" aria-labelledby="discover-title">
+        <header class="section-heading">
+          <p class="eyebrow">Die Auswahl</p>
+          <h2 id="discover-title">Finde dein nächstes Buch</h2>
+          <p>
+            Suche nach Titel oder Autor:in und grenze die Empfehlungen nach Genre ein.
+          </p>
+        </header>
+
+        <form class="filters" id="filter-form" aria-label="Buchempfehlungen filtern">
+          <label for="search">Suche</label>
+          <input
+            id="search"
+            name="search"
+            type="search"
+            placeholder="Titel oder Autor:in"
+            autocomplete="off"
+          />
+
+          <label for="genre">Genre</label>
+          <select id="genre" name="genre">
+            <option value="alle">Alle Genres</option>
+            <option value="Roman">Roman</option>
+            <option value="Klassiker">Klassiker</option>
+            <option value="Fantasy">Fantasy</option>
+            <option value="Sachbuch">Sachbuch</option>
+          </select>
+
+          <button class="button-secondary" id="reset-filter" type="reset">
+            Filter zurücksetzen
+          </button>
+        </form>
+
+        <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
+        <section class="book-grid" id="book-list" aria-label="Gefilterte Buchempfehlungen"></section>
+        <p class="empty-state" id="empty-state" hidden>
+          Keine passende Empfehlung gefunden. Probiere einen anderen Suchbegriff.
+        </p>
+      </section>
+
+      <aside class="reading-prompt" id="leseimpuls" aria-labelledby="prompt-title">
+        <p class="eyebrow">Unentschlossen?</p>
+        <h2 id="prompt-title">Lass dich überraschen</h2>
+        <p>
+          Ein Klick genügt und die Sammlung wählt einen zufälligen Lesetipp für dich aus.
+        </p>
+        <button class="button-primary" id="random-book" type="button">
+          Buch vorschlagen
+        </button>
+        <p class="random-result" id="random-result" aria-live="polite"></p>
+      </aside>
+
+      <section class="selection" id="auswahl" aria-labelledby="selection-title">
+        <header class="section-heading">
+          <p class="eyebrow">Hinter den Empfehlungen</p>
+          <h2 id="selection-title">So wurde ausgewählt</h2>
+        </header>
+
+        <section class="principles" aria-label="Drei Auswahlkriterien">
+          <article>
+            <p class="principle-number" aria-hidden="true">01</p>
+            <h3>Verschiedene Perspektiven</h3>
+            <p>Die Sammlung verbindet unterschiedliche Zeiten, Stimmen und Lebenswelten.</p>
+          </article>
+          <article>
+            <p class="principle-number" aria-hidden="true">02</p>
+            <h3>Bleibende Gedanken</h3>
+            <p>Jedes Buch bietet Ideen, Figuren oder Fragen, die über die letzte Seite hinauswirken.</p>
+          </article>
+          <article>
+            <p class="principle-number" aria-hidden="true">03</p>
+            <h3>Ein guter Einstieg</h3>
+            <p>Kurze Einordnungen helfen dabei, ohne Spoiler das passende Buch zu finden.</p>
+          </article>
+        </section>
+      </section>
     </main>
+
+    <footer>
+      <p><strong>Zwischen den Zeilen</strong> · ESA 1 · Front-End Development</p>
+      <a href="#start">Zurück nach oben</a>
+    </footer>
+
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
