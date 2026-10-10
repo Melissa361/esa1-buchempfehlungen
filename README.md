@@ -1,61 +1,42 @@
 # Zwischen den Zeilen
 
-**Zwischen den Zeilen** ist ein persönliches digitales Bücherregal mit 33 Titeln. Die Sammlung umfasst vollständige Reihen, Einzelbände und kommende Neuerscheinungen. Sie lässt sich nach Titel oder Autor:in durchsuchen sowie nach Reihe und Lesestatus filtern.
+Für meine erste Einsendeaufgabe im Kurs Front-End Development wollte ich keine beliebige Liste mit Buchempfehlungen erstellen, sondern ein Bücherregal, das wirklich zu mir passt. **Zwischen den Zeilen** zeigt deshalb 33 Bücher, die ich bereits gelesen habe, gerade lese oder unbedingt noch lesen möchte.
 
-Das Projekt entstand als Einsendeaufgabe 1 im Kurs Front-End Development (SED502).
+Mit dabei sind unter anderem die Reihen *Throne of Glass*, *ACOTAR*, *Crescent City*, *Fourth Wing*, *Off-Campus* und *Fae & Alchemy*. Ergänzt wird das Regal durch einige Einzelbände, die mir ebenfalls wichtig sind.
 
-## Funktionen
+## Was man auf der Seite machen kann
 
-- Live-Suche nach Titel und Autor:in
-- Reihenfilter für Throne of Glass, ACOTAR, Crescent City, Empyrean, Off-Campus und Fae & Alchemy
-- Lesestatus für gelesen, aktuell gelesen und vorgemerkte Neuerscheinungen
-- Zufälliger Lesetipp aus der aktuellen Auswahl
-- Dynamische Darstellung der Ergebnisse mit TypeScript
-- Responsives Layout für Desktop, Tablet und Smartphone
-- Tastaturbedienung, Skip-Link und Statusmeldungen für Screenreader
+- nach einem Titel oder einer Autorin beziehungsweise einem Autor suchen
+- die Bücher nach Reihe und Lesestatus filtern
+- auf einen Blick sehen, was gelesen, aktuell begonnen oder vorgemerkt ist
+- sich per Zufall einen Lesetipp aus der aktuellen Auswahl geben lassen
+- die Seite am Computer, Tablet oder Smartphone verwenden
 
-## Technische Entscheidungen
+Bei der Gestaltung habe ich mich für tiefe Blautöne in Kombination mit warmem Rot, Koralle und Gold entschieden. Die Farben erinnern mich an einen Sonnenaufgang beziehungsweise Sonnenuntergang und greifen gleichzeitig die Stimmung meiner liebsten Fantasy-Reihen auf.
 
-Die Webseite verwendet bewusst **Vanilla TypeScript** ohne Framework, weil die Aufgabe die Grundlagen aus Modul 01 und 02 prüft. Vite dient als Entwicklungsserver und erstellt den Produktions-Build.
+## Wie die Seite entstanden ist
 
-Die HTML-Struktur besteht aus semantischen Elementen wie `header`, `nav`, `main`, `section`, `article`, `aside`, `figure`, `figcaption` und `footer`. Die Navigation besitzt ein `aria-label`; dynamisch aktualisierte Meldungen verwenden `aria-live`.
+Die Webseite wurde mit HTML, CSS und TypeScript umgesetzt. Ich habe bewusst kein Framework verwendet, weil ich bei dieser Aufgabe vor allem die Grundlagen aus den ersten beiden Modulen anwenden und besser verstehen wollte. Vite unterstützt mich beim lokalen Entwickeln und beim Erstellen der fertigen Version.
 
-Die Buchdaten werden durch das Interface `Book` beschrieben. Suche, Reihen- und Statusauswahl werden mit typisierten Funktionen verarbeitet. Zum Filtern und Erzeugen der Karten kommen unter anderem die Array-Methoden `filter()` und `map()` zum Einsatz. DOM-Inhalte werden mit `textContent` erstellt, nicht mit `innerHTML`.
+Die Buchkarten werden aus einer gemeinsamen Datensammlung erzeugt. Dadurch musste ich das Aussehen einer Karte nur einmal gestalten und kann neue Bücher später leichter ergänzen. Auch Suche und Filter greifen direkt auf diese Daten zu.
 
-## Projekt starten
+Mir war außerdem wichtig, dass die Seite nicht nur schön aussieht, sondern auch gut bedienbar ist. Deshalb gibt es unter anderem deutlich sichtbare Fokuszustände, beschriftete Eingabefelder, eine sinnvolle Überschriftenstruktur und Statusmeldungen für Screenreader.
 
-Voraussetzungen: Node.js 20 oder neuer und npm.
+## Projekt lokal ansehen
+
+Benötigt werden Node.js 20 oder neuer und npm. Nach dem Herunterladen des Projekts können im Terminal diese beiden Befehle ausgeführt werden:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Vite zeigt danach die lokale Adresse im Terminal an.
+Anschließend zeigt Vite im Terminal die lokale Adresse der Webseite an.
 
-## Build prüfen
+## Fertige Version prüfen
 
 ```bash
 npm run build
 ```
 
-Der fertige Build wird im Ordner `dist/` erzeugt. TypeScript wird dabei im Strict-Modus geprüft.
-
-## Projektstruktur
-
-```text
-.
-├── public/
-│   └── favicon.svg
-├── src/
-│   ├── books.ts
-│   ├── main.ts
-│   └── style.css
-├── index.html
-├── package.json
-└── tsconfig.json
-```
-
-## Accessibility
-
-Die Seite wurde für gut sichtbare Fokuszustände, ausreichende Farbkontraste, logische Überschriften, beschriftete Formulare und reduzierte Bewegungen bei entsprechender Systemeinstellung optimiert. Das Ergebnis des abschließenden Lighthouse-Accessibility-Audits befindet sich in `lighthouse.png`.
+Dabei wird TypeScript überprüft und die fertige Version im Ordner `dist` erstellt. Die abschließende Accessibility-Prüfung mit Lighthouse erreichte 100 von 100 Punkten; der Nachweis liegt im Projekt als `lighthouse.png`.
