@@ -1,12 +1,19 @@
 import './style.css';
-import { books, type Book, type Genre } from './books';
+import {
+  books,
+  type Book,
+  type ReadingStatus,
+  type Series,
+} from './books';
 
-type GenreFilter = Genre | 'alle';
+type SeriesFilter = Series | 'alle';
+type StatusFilter = ReadingStatus | 'alle';
 
 interface AppElements {
   form: HTMLFormElement;
   searchInput: HTMLInputElement;
-  genreSelect: HTMLSelectElement;
+  seriesSelect: HTMLSelectElement;
+  statusSelect: HTMLSelectElement;
   bookList: HTMLElement;
   resultCount: HTMLParagraphElement;
   emptyState: HTMLParagraphElement;
@@ -21,17 +28,32 @@ function normalizeText(value: string): string {
 function filterBooks(
   collection: Book[],
   query: string,
-  genre: GenreFilter,
+  series: SeriesFilter,
+  status: StatusFilter,
 ): Book[] {
   const normalizedQuery = normalizeText(query);
 
   return collection.filter((book: Book): boolean => {
-    const searchableText = normalizeText(`${book.title} ${book.author}`);
+    const searchableText = normalizeText(
+      `${book.title} ${book.author} ${book.series} ${book.tags.join(' ')}`,
+    );
     const matchesSearch = searchableText.includes(normalizedQuery);
-    const matchesGenre = genre === 'alle' || book.genre === genre;
+    const matchesSeries = series === 'alle' || book.series === series;
+    const matchesStatus = status === 'alle' || book.status === status;
 
-    return matchesSearch && matchesGenre;
+    return matchesSearch && matchesSeries && matchesStatus;
   });
+}
+
+function getStatusClass(status: ReadingStatus): string {
+  const statusClasses: Record<ReadingStatus, string> = {
+    Gelesen: 'status-read',
+    'Lese ich gerade': 'status-current',
+    'Will ich lesen': 'status-next',
+    'Warte auf Erscheinung': 'status-waiting',
+  };
+
+  return statusClasses[status];
 }
 
 function createBookCard(book: Book): HTMLElement {
@@ -42,7 +64,9 @@ function createBookCard(book: Book): HTMLElement {
 
   const cover = document.createElement('figure');
   cover.className = 'book-cover';
-  cover.style.setProperty('--cover-color', book.coverColor);
+  cover.style.setProperty('--cover-start', book.coverStart);
+  cover.style.setProperty('--cover-end', book.coverEnd);
+  cover.style.setProperty('--cover-accent', book.coverAccent);
 
   const coverMark = document.createElement('span');
   coverMark.className = 'cover-mark';
@@ -65,7 +89,7 @@ function createBookCard(book: Book): HTMLElement {
 
   const meta = document.createElement('p');
   meta.className = 'book-meta';
-  meta.textContent = `${book.genre} · ${book.year}`;
+  meta.textContent = `${book.series} · ${book.volume}`;
 
   const title = document.createElement('h3');
   title.id = headingId;
@@ -74,6 +98,10 @@ function createBookCard(book: Book): HTMLElement {
   const author = document.createElement('p');
   author.className = 'book-author';
   author.textContent = `von ${book.author}`;
+
+  const status = document.createElement('p');
+  status.className = `status-badge ${getStatusClass(book.status)}`;
+  status.textContent = book.status;
 
   const description = document.createElement('p');
   description.className = 'book-description';
@@ -89,7 +117,7 @@ function createBookCard(book: Book): HTMLElement {
   });
   tagList.append(...tags);
 
-  details.append(meta, title, author, description, tagList);
+  details.append(meta, title, author, status, description, tagList);
   article.append(cover, details);
 
   return article;
@@ -100,20 +128,50 @@ function renderBooks(elements: AppElements, visibleBooks: Book[]): void {
   elements.bookList.replaceChildren(...cards);
 
   const count = visibleBooks.length;
+  const readCount = visibleBooks.filter((book: Book): boolean => book.status === 'Gelesen').length;
   elements.resultCount.textContent =
-    count === 1 ? '1 Empfehlung gefunden' : `${count} Empfehlungen gefunden`;
+    count === 1
+      ? `1 Buch angezeigt · ${readCount} gelesen`
+      : `${count} Bücher angezeigt · ${readCount} gelesen`;
   elements.emptyState.hidden = count > 0;
 }
 
-function getSelectedGenre(select: HTMLSelectElement): GenreFilter {
+function getSelectedSeries(select: HTMLSelectElement): SeriesFilter {
   const value = select.value;
-  const validGenres: GenreFilter[] = ['alle', 'Roman', 'Klassiker', 'Fantasy', 'Sachbuch'];
+  const validSeries: SeriesFilter[] = [
+    'alle',
+    'Throne of Glass',
+    'ACOTAR',
+    'Crescent City',
+    'Empyrean',
+    'Off-Campus',
+    'Fae & Alchemy',
+    'Einzelband',
+  ];
 
-  return validGenres.includes(value as GenreFilter) ? (value as GenreFilter) : 'alle';
+  return validSeries.includes(value as SeriesFilter) ? (value as SeriesFilter) : 'alle';
+}
+
+function getSelectedStatus(select: HTMLSelectElement): StatusFilter {
+  const value = select.value;
+  const validStatuses: StatusFilter[] = [
+    'alle',
+    'Gelesen',
+    'Lese ich gerade',
+    'Will ich lesen',
+    'Warte auf Erscheinung',
+  ];
+
+  return validStatuses.includes(value as StatusFilter) ? (value as StatusFilter) : 'alle';
 }
 
 function getVisibleBooks(elements: AppElements): Book[] {
-  return filterBooks(books, elements.searchInput.value, getSelectedGenre(elements.genreSelect));
+  return filterBooks(
+    books,
+    elements.searchInput.value,
+    getSelectedSeries(elements.seriesSelect),
+    getSelectedStatus(elements.statusSelect),
+  );
 }
 
 function applyFilters(elements: AppElements): void {
@@ -130,7 +188,7 @@ function showRandomRecommendation(elements: AppElements): void {
   const availableBooks = filteredBooks.length > 0 ? filteredBooks : books;
   const recommendation = selectRandomBook(availableBooks);
 
-  elements.randomResult.textContent = `Unser Tipp: „${recommendation.title}“ von ${recommendation.author}.`;
+  elements.randomResult.textContent = `Dein Tipp: „${recommendation.title}“ von ${recommendation.author} · ${recommendation.status}.`;
   elements.randomResult.tabIndex = -1;
   elements.randomResult.focus();
 }
@@ -138,7 +196,8 @@ function showRandomRecommendation(elements: AppElements): void {
 function getAppElements(): AppElements | null {
   const form = document.querySelector<HTMLFormElement>('#filter-form');
   const searchInput = document.querySelector<HTMLInputElement>('#search');
-  const genreSelect = document.querySelector<HTMLSelectElement>('#genre');
+  const seriesSelect = document.querySelector<HTMLSelectElement>('#series');
+  const statusSelect = document.querySelector<HTMLSelectElement>('#status');
   const bookList = document.querySelector<HTMLElement>('#book-list');
   const resultCount = document.querySelector<HTMLParagraphElement>('#result-count');
   const emptyState = document.querySelector<HTMLParagraphElement>('#empty-state');
@@ -148,7 +207,8 @@ function getAppElements(): AppElements | null {
   if (
     !form ||
     !searchInput ||
-    !genreSelect ||
+    !seriesSelect ||
+    !statusSelect ||
     !bookList ||
     !resultCount ||
     !emptyState ||
@@ -161,7 +221,8 @@ function getAppElements(): AppElements | null {
   return {
     form,
     searchInput,
-    genreSelect,
+    seriesSelect,
+    statusSelect,
     bookList,
     resultCount,
     emptyState,
@@ -181,7 +242,8 @@ function initializeApp(): void {
   renderBooks(elements, books);
 
   elements.searchInput.addEventListener('input', (): void => applyFilters(elements));
-  elements.genreSelect.addEventListener('change', (): void => applyFilters(elements));
+  elements.seriesSelect.addEventListener('change', (): void => applyFilters(elements));
+  elements.statusSelect.addEventListener('change', (): void => applyFilters(elements));
   elements.form.addEventListener('reset', (): void => {
     window.setTimeout((): void => applyFilters(elements), 0);
   });

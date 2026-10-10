@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Entdecke persönlich ausgewählte Buchempfehlungen und finde mit Suche und Genrefilter deinen nächsten Lesetipp."
+      content="Entdecke Melissas persönliches Bücherregal und filtere 33 Titel nach Reihe und Lesestatus."
     />
-    <meta name="theme-color" content="#28382f" />
+    <meta name="theme-color" content="#091b35" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <title>Zwischen den Zeilen – Buchempfehlungen</title>
   </head>
@@ -21,24 +21,24 @@
           Zwischen den Zeilen
         </a>
         <ul>
-          <li><a href="#empfehlungen">Empfehlungen</a></li>
+          <li><a href="#empfehlungen">Bücherregal</a></li>
           <li><a href="#leseimpuls">Leseimpuls</a></li>
           <li><a href="#auswahl">Auswahl</a></li>
         </ul>
       </nav>
 
       <section class="hero" aria-labelledby="hero-title">
-        <p class="eyebrow">Ein kleiner literarischer Kompass</p>
-        <h1 id="hero-title">Geschichten, die noch lange nachklingen.</h1>
+        <p class="eyebrow">Melissas persönliches Bücherregal</p>
+        <h1 id="hero-title">Zwischen Nachtblau und Morgenrot.</h1>
         <p class="hero-copy">
-          Acht ausgewählte Bücher, acht neue Blickwinkel. Durchsuche die Sammlung
-          oder filtere nach Stimmung und Genre.
+          33 Bücher, sechs Reihenwelten und ein Lesestatus, der mitwächst. Von
+          Prythian bis Basgiath – hier stehen gelesene und vorgemerkte Geschichten.
         </p>
         <a class="button-link" href="#empfehlungen">Bücher entdecken</a>
         <aside class="hero-note" aria-label="Leitgedanke">
           <p>
-            Manchmal beginnt die richtige Geschichte genau mit der Frage:
-            <strong>Was lese ich als Nächstes?</strong>
+            Große Reihen, starke Figuren und immer noch eine Geschichte mehr.
+            <strong>Gelesen. Geliebt. Vorgemerkt.</strong>
           </p>
         </aside>
       </section>
@@ -47,10 +47,10 @@
     <main id="inhalt">
       <section class="discover" id="empfehlungen" aria-labelledby="discover-title">
         <header class="section-heading">
-          <p class="eyebrow">Die Auswahl</p>
-          <h2 id="discover-title">Finde dein nächstes Buch</h2>
+          <p class="eyebrow">Die Bibliothek</p>
+          <h2 id="discover-title">Mein Bücherregal</h2>
           <p>
-            Suche nach Titel oder Autor:in und grenze die Empfehlungen nach Genre ein.
+            Suche nach Titel oder Autor:in und filtere die Sammlung nach Reihe und Lesestatus.
           </p>
         </header>
 
@@ -64,13 +64,25 @@
             autocomplete="off"
           />
 
-          <label for="genre">Genre</label>
-          <select id="genre" name="genre">
-            <option value="alle">Alle Genres</option>
-            <option value="Roman">Roman</option>
-            <option value="Klassiker">Klassiker</option>
-            <option value="Fantasy">Fantasy</option>
-            <option value="Sachbuch">Sachbuch</option>
+          <label for="series">Reihe</label>
+          <select id="series" name="series">
+            <option value="alle">Alle Reihen</option>
+            <option value="Throne of Glass">Throne of Glass</option>
+            <option value="ACOTAR">ACOTAR</option>
+            <option value="Crescent City">Crescent City</option>
+            <option value="Empyrean">Empyrean / Fourth Wing</option>
+            <option value="Off-Campus">Off-Campus</option>
+            <option value="Fae &amp; Alchemy">Fae &amp; Alchemy</option>
+            <option value="Einzelband">Einzelbände</option>
+          </select>
+
+          <label for="status">Lesestatus</label>
+          <select id="status" name="status">
+            <option value="alle">Alle Status</option>
+            <option value="Gelesen">Gelesen</option>
+            <option value="Lese ich gerade">Lese ich gerade</option>
+            <option value="Will ich lesen">Will ich lesen</option>
+            <option value="Warte auf Erscheinung">Warte auf Erscheinung</option>
           </select>
 
           <button class="button-secondary" id="reset-filter" type="reset">
@@ -81,43 +93,43 @@
         <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
         <section class="book-grid" id="book-list" aria-label="Gefilterte Buchempfehlungen"></section>
         <p class="empty-state" id="empty-state" hidden>
-          Keine passende Empfehlung gefunden. Probiere einen anderen Suchbegriff.
+          Kein passendes Buch gefunden. Probiere einen anderen Suchbegriff oder Filter.
         </p>
       </section>
 
       <aside class="reading-prompt" id="leseimpuls" aria-labelledby="prompt-title">
-        <p class="eyebrow">Unentschlossen?</p>
-        <h2 id="prompt-title">Lass dich überraschen</h2>
+        <p class="eyebrow">Was kommt als Nächstes?</p>
+        <h2 id="prompt-title">Lass das Regal entscheiden</h2>
         <p>
-          Ein Klick genügt und die Sammlung wählt einen zufälligen Lesetipp für dich aus.
+          Ein Klick genügt und die aktuelle Auswahl schlägt einen Titel aus dem Regal vor.
         </p>
         <button class="button-primary" id="random-book" type="button">
-          Buch vorschlagen
+          Lesetipp auslosen
         </button>
         <p class="random-result" id="random-result" aria-live="polite"></p>
       </aside>
 
       <section class="selection" id="auswahl" aria-labelledby="selection-title">
         <header class="section-heading">
-          <p class="eyebrow">Hinter den Empfehlungen</p>
-          <h2 id="selection-title">So wurde ausgewählt</h2>
+          <p class="eyebrow">Hinter dem Regal</p>
+          <h2 id="selection-title">So ist die Sammlung geordnet</h2>
         </header>
 
         <section class="principles" aria-label="Drei Auswahlkriterien">
           <article>
             <p class="principle-number" aria-hidden="true">01</p>
-            <h3>Verschiedene Perspektiven</h3>
-            <p>Die Sammlung verbindet unterschiedliche Zeiten, Stimmen und Lebenswelten.</p>
+            <h3>Reihenwelten</h3>
+            <p>Zusammengehörige Bände bleiben als vollständige Reihen schnell auffindbar.</p>
           </article>
           <article>
             <p class="principle-number" aria-hidden="true">02</p>
-            <h3>Bleibende Gedanken</h3>
-            <p>Jedes Buch bietet Ideen, Figuren oder Fragen, die über die letzte Seite hinauswirken.</p>
+            <h3>Lesestatus</h3>
+            <p>Gelesen, gerade dabei oder vorgemerkt: Der aktuelle Stand ist sofort sichtbar.</p>
           </article>
           <article>
             <p class="principle-number" aria-hidden="true">03</p>
-            <h3>Ein guter Einstieg</h3>
-            <p>Kurze Einordnungen helfen dabei, ohne Spoiler das passende Buch zu finden.</p>
+            <h3>Ohne Spoiler</h3>
+            <p>Kurze Einordnungen geben Orientierung, ohne wichtige Wendungen vorwegzunehmen.</p>
           </article>
         </section>
       </section>

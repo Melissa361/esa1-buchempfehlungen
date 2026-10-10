@@ -1,13 +1,14 @@
 # Zwischen den Zeilen
 
-**Zwischen den Zeilen** ist eine kleine statische Webseite mit acht Buchempfehlungen. Besucher:innen können die Auswahl nach Titel oder Autor:in durchsuchen, nach Genre filtern und sich per Zufall ein Buch vorschlagen lassen.
+**Zwischen den Zeilen** ist ein persönliches digitales Bücherregal mit 33 Titeln. Die Sammlung umfasst vollständige Reihen, Einzelbände und kommende Neuerscheinungen. Sie lässt sich nach Titel oder Autor:in durchsuchen sowie nach Reihe und Lesestatus filtern.
 
 Das Projekt entstand als Einsendeaufgabe 1 im Kurs Front-End Development (SED502).
 
 ## Funktionen
 
 - Live-Suche nach Titel und Autor:in
-- Filter für Roman, Klassiker, Fantasy und Sachbuch
+- Reihenfilter für Throne of Glass, ACOTAR, Crescent City, Empyrean, Off-Campus und Fae & Alchemy
+- Lesestatus für gelesen, aktuell gelesen und vorgemerkte Neuerscheinungen
 - Zufälliger Lesetipp aus der aktuellen Auswahl
 - Dynamische Darstellung der Ergebnisse mit TypeScript
 - Responsives Layout für Desktop, Tablet und Smartphone
@@ -19,7 +20,7 @@ Die Webseite verwendet bewusst **Vanilla TypeScript** ohne Framework, weil die A
 
 Die HTML-Struktur besteht aus semantischen Elementen wie `header`, `nav`, `main`, `section`, `article`, `aside`, `figure`, `figcaption` und `footer`. Die Navigation besitzt ein `aria-label`; dynamisch aktualisierte Meldungen verwenden `aria-live`.
 
-Die Buchdaten werden durch das Interface `Book` beschrieben. Suche und Genre-Auswahl werden mit typisierten Funktionen verarbeitet. Zum Filtern und Erzeugen der Karten kommen unter anderem die Array-Methoden `filter()` und `map()` zum Einsatz. DOM-Inhalte werden mit `textContent` erstellt, nicht mit `innerHTML`.
+Die Buchdaten werden durch das Interface `Book` beschrieben. Suche, Reihen- und Statusauswahl werden mit typisierten Funktionen verarbeitet. Zum Filtern und Erzeugen der Karten kommen unter anderem die Array-Methoden `filter()` und `map()` zum Einsatz. DOM-Inhalte werden mit `textContent` erstellt, nicht mit `innerHTML`.
 
 ## Projekt starten
 
