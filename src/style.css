@@ -430,6 +430,8 @@ input::placeholder {
   font-family: 'Fraunces', Georgia, serif;
   font-size: 1.45rem;
   line-height: 1.05;
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .book-details {
@@ -452,6 +454,8 @@ input::placeholder {
   margin-bottom: 0.3rem;
   color: var(--forest);
   font-size: 1.4rem;
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 
 .book-author {
@@ -615,6 +619,14 @@ footer a {
   border: 0;
 }
 
+.noscript-message {
+  width: min(72rem, calc(100% - 2.5rem));
+  padding: 1rem;
+  margin: 0 auto 2rem;
+  color: #ffffff;
+  background: var(--rust);
+}
+
 @media (max-width: 60rem) {
   .book-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -707,6 +719,16 @@ footer a {
   }
 }
 
+@media (max-width: 40rem) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .book-cover {
+    min-height: 14rem;
+  }
+}
+
 @media (max-width: 34rem) {
   .navigation,
   .hero,
@@ -719,13 +741,6 @@ footer a {
     font-size: clamp(2.8rem, 15vw, 4.2rem);
   }
 
-  .book-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .book-cover {
-    min-height: 14rem;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
