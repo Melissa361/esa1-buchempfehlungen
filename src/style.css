@@ -1,0 +1,14 @@
+:root {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #25231f;
+  background: #f6f0e6;
+}
+
+body {
+  margin: 0;
+}
+
+main {
+  width: min(70rem, calc(100% - 2rem));
+  margin: 5rem auto;
+}
